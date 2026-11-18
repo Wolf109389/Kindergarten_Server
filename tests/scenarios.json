@@ -1,0 +1,127 @@
+{
+  "payloads": {
+    "addresses": {
+      "city": "Львів",
+      "district": "Сихівський",
+      "street": "Тестова",
+      "building_number": "34",
+      "postal_code": "79000"
+    },
+    "kindergartens": {
+      "name": "Тестовий дитсадок",
+      "address_id": "@addresses",
+      "phone": null,
+      "email": "lab4@example.com"
+    },
+    "positions": {
+      "name": "Тестова посада {{run_id}}",
+      "description": "Посада для перевірки API"
+    },
+    "employees": {
+      "last_name": "Тестенко",
+      "first_name": "Олена",
+      "middle_name": null,
+      "birth_date": "1995-01-15",
+      "phone": null,
+      "email": null
+    },
+    "employment_history": {
+      "employee_id": "@employees",
+      "kindergarten_id": "@kindergartens",
+      "position_id": "@positions",
+      "hire_date": "2026-09-01",
+      "dismissal_date": null
+    },
+    "salary_payments": {
+      "employment_id": "@employment_history",
+      "salary_month": "2026-10-01",
+      "amount": "18000.50",
+      "payment_date": "2026-10-31"
+    },
+    "bonus_payments": {
+      "employment_id": "@employment_history",
+      "amount": "1200.00",
+      "award_date": "2026-10-20",
+      "reason": "Допомога в організації свята",
+      "payment_date": null
+    },
+    "child_groups": {
+      "kindergarten_id": "@kindergartens",
+      "name": "Тестова група",
+      "age_min": 3,
+      "age_max": 5,
+      "capacity": 20
+    },
+    "children": {
+      "last_name": "Тестенко",
+      "first_name": "Марія",
+      "middle_name": null,
+      "birth_date": "2022-05-10"
+    },
+    "group_enrollments": {
+      "child_id": "@children",
+      "group_id": "@child_groups",
+      "start_date": "2026-09-01",
+      "end_date": null,
+      "departure_reason": null
+    },
+    "employee_groups": {
+      "employee_id": "@employees",
+      "group_id": "@child_groups"
+    }
+  },
+  "keys": {
+    "addresses": "address_id",
+    "kindergartens": "kindergarten_id",
+    "positions": "positions_id",
+    "employees": "employee_id",
+    "employment_history": "employment_id",
+    "salary_payments": "salary_payment_id",
+    "bonus_payments": "bonus_payment_id",
+    "child_groups": "group_id",
+    "children": "child_id",
+    "group_enrollments": "enrollment_id"
+  },
+  "updates": {
+    "addresses": [
+      "street",
+      "Оновлена вулиця"
+    ],
+    "kindergartens": [
+      "name",
+      "Оновлений дитсадок"
+    ],
+    "positions": [
+      "description",
+      "Оновлений опис"
+    ],
+    "employees": [
+      "phone",
+      "+380670000099"
+    ],
+    "employment_history": [
+      "dismissal_date",
+      "2026-12-31"
+    ],
+    "salary_payments": [
+      "amount",
+      "19500.75"
+    ],
+    "bonus_payments": [
+      "reason",
+      "Оновлена причина премії"
+    ],
+    "child_groups": [
+      "capacity",
+      24
+    ],
+    "children": [
+      "middle_name",
+      "Іванівна"
+    ],
+    "group_enrollments": [
+      "departure_reason",
+      "Тестове оновлення"
+    ]
+  }
+}

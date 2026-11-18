@@ -1,0 +1,1923 @@
+{
+  "info": {
+    "name": "Lab 4 — Дитсадок — Варіант 34",
+    "description": "Запускай усю колекцію зверху вниз. Створює власні тестові записи, перевіряє CRUD та зв’язки й видаляє лише ці записи. Потрібна наявна схема з лабораторної 3.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5001"
+    },
+    {
+      "key": "run_id",
+      "value": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (pm.info.requestName === \"Підключення Flask до MySQL\") {",
+          "  pm.collectionVariables.set(\"run_id\", Date.now().toString() + Math.random().toString(36).slice(2, 7));",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Перевірка підключення і перегляд усіх таблиць",
+      "item": [
+        {
+          "name": "Підключення Flask до MySQL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список addresses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/addresses"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список kindergartens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/kindergartens"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список positions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/positions"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employees"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список employment_history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employment_history"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список salary_payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/salary_payments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список bonus_payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/bonus_payments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список child_groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/child_groups"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список children",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/children"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список group_enrollments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/group_enrollments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Список employee_groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employee_groups"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 Створити тестові записи у правильному порядку",
+      "item": [
+        {
+          "name": "Створити addresses",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/addresses",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Львів\",\n  \"district\": \"Сихівський\",\n  \"street\": \"Тестова\",\n  \"building_number\": \"34\",\n  \"postal_code\": \"79000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"addresses_id\", pm.response.json().data.address_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити kindergartens",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/kindergartens",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Тестовий дитсадок\",\n  \"address_id\": {{addresses_id}},\n  \"phone\": null,\n  \"email\": \"lab4@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"kindergartens_id\", pm.response.json().data.kindergarten_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити positions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/positions",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Тестова посада {{run_id}}\",\n  \"description\": \"Посада для перевірки API\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"positions_id\", pm.response.json().data.positions_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити employees",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employees",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"last_name\": \"Тестенко\",\n  \"first_name\": \"Олена\",\n  \"middle_name\": null,\n  \"birth_date\": \"1995-01-15\",\n  \"phone\": null,\n  \"email\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"employees_id\", pm.response.json().data.employee_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити employment_history",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employment_history",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": {{employees_id}},\n  \"kindergarten_id\": {{kindergartens_id}},\n  \"position_id\": {{positions_id}},\n  \"hire_date\": \"2026-09-01\",\n  \"dismissal_date\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"employment_history_id\", pm.response.json().data.employment_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити salary_payments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/salary_payments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employment_id\": {{employment_history_id}},\n  \"salary_month\": \"2026-10-01\",\n  \"amount\": \"18000.50\",\n  \"payment_date\": \"2026-10-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"salary_payments_id\", pm.response.json().data.salary_payment_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити bonus_payments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/bonus_payments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employment_id\": {{employment_history_id}},\n  \"amount\": \"1200.00\",\n  \"award_date\": \"2026-10-20\",\n  \"reason\": \"Допомога в організації свята\",\n  \"payment_date\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"bonus_payments_id\", pm.response.json().data.bonus_payment_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити child_groups",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/child_groups",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kindergarten_id\": {{kindergartens_id}},\n  \"name\": \"Тестова група\",\n  \"age_min\": 3,\n  \"age_max\": 5,\n  \"capacity\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"child_groups_id\", pm.response.json().data.group_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити children",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/children",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"last_name\": \"Тестенко\",\n  \"first_name\": \"Марія\",\n  \"middle_name\": null,\n  \"birth_date\": \"2022-05-10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"children_id\", pm.response.json().data.child_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити group_enrollments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/group_enrollments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"child_id\": {{children_id}},\n  \"group_id\": {{child_groups_id}},\n  \"start_date\": \"2026-09-01\",\n  \"end_date\": null,\n  \"departure_reason\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"group_enrollments_id\", pm.response.json().data.enrollment_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Створити employee_groups",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employee_groups",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": {{employees_id}},\n  \"group_id\": {{child_groups_id}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 Перегляд одного запису й оновлення всіх таблиць",
+      "item": [
+        {
+          "name": "Отримати один addresses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити addresses",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Львів\",\n  \"district\": \"Сихівський\",\n  \"street\": \"Оновлена вулиця\",\n  \"building_number\": \"34\",\n  \"postal_code\": \"79000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один kindergartens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/kindergartens/{{kindergartens_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити kindergartens",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/kindergartens/{{kindergartens_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Оновлений дитсадок\",\n  \"address_id\": {{addresses_id}},\n  \"phone\": null,\n  \"email\": \"lab4@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один positions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/positions/{{positions_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити positions",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/positions/{{positions_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Тестова посада {{run_id}}\",\n  \"description\": \"Оновлений опис\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employees/{{employees_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити employees",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employees/{{employees_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"last_name\": \"Тестенко\",\n  \"first_name\": \"Олена\",\n  \"middle_name\": null,\n  \"birth_date\": \"1995-01-15\",\n  \"phone\": \"+380670000099\",\n  \"email\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один employment_history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employment_history/{{employment_history_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити employment_history",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employment_history/{{employment_history_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": {{employees_id}},\n  \"kindergarten_id\": {{kindergartens_id}},\n  \"position_id\": {{positions_id}},\n  \"hire_date\": \"2026-09-01\",\n  \"dismissal_date\": \"2026-12-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один salary_payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/salary_payments/{{salary_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити salary_payments",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/salary_payments/{{salary_payments_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employment_id\": {{employment_history_id}},\n  \"salary_month\": \"2026-10-01\",\n  \"amount\": \"19500.75\",\n  \"payment_date\": \"2026-10-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один bonus_payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/bonus_payments/{{bonus_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити bonus_payments",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/bonus_payments/{{bonus_payments_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employment_id\": {{employment_history_id}},\n  \"amount\": \"1200.00\",\n  \"award_date\": \"2026-10-20\",\n  \"reason\": \"Оновлена причина премії\",\n  \"payment_date\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один child_groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/child_groups/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити child_groups",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/child_groups/{{child_groups_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kindergarten_id\": {{kindergartens_id}},\n  \"name\": \"Тестова група\",\n  \"age_min\": 3,\n  \"age_max\": 5,\n  \"capacity\": 24\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один children",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/children/{{children_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити children",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/children/{{children_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"last_name\": \"Тестенко\",\n  \"first_name\": \"Марія\",\n  \"middle_name\": \"Іванівна\",\n  \"birth_date\": \"2022-05-10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один group_enrollments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/group_enrollments/{{group_enrollments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити group_enrollments",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/group_enrollments/{{group_enrollments_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"child_id\": {{children_id}},\n  \"group_id\": {{child_groups_id}},\n  \"start_date\": \"2026-09-01\",\n  \"end_date\": null,\n  \"departure_reason\": \"Тестове оновлення\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Отримати один employee_groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employee_groups/{{employees_id}}/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Оновити employee_groups",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employee_groups/{{employees_id}}/{{child_groups_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": {{employees_id}},\n  \"group_id\": {{child_groups_id}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 Перевірка зв’язків 1:M і M:M",
+      "item": [
+        {
+          "name": "Групи дитсадка 1:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/kindergartens/{{kindergartens_id}}/child_groups"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Дитсадки за адресою 1:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}/kindergartens"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Працевлаштування працівника 1:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employees/{{employees_id}}/employment_history"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Групи одного працівника M:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employees/{{employees_id}}/groups"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Працівники однієї групи M:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/child_groups/{{child_groups_id}}/employees"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Усі працівники з їхніми групами M:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/relations/employees_groups"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Зарахування дитини 1:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/children/{{children_id}}/group_enrollments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Виплати працевлаштування 1:M",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employment_history/{{employment_history_id}}/salary_payments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 Перевірка помилок",
+      "item": [
+        {
+          "name": "Не можна видалити зайняту адресу",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 409\", function () { pm.response.to.have.status(409); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Повторне призначення працівника до групи",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/employee_groups",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": {{employees_id}},\n  \"group_id\": {{child_groups_id}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 409\", function () { pm.response.to.have.status(409); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Некоректний вік групи",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/child_groups",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kindergarten_id\": {{kindergartens_id}},\n  \"name\": \"Тестова група\",\n  \"age_min\": 7,\n  \"age_max\": 3,\n  \"capacity\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Немає обов’язкових полів",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/children",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Марія\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06 Видалити лише створені тестові записи",
+      "item": [
+        {
+          "name": "Видалити тестовий employee_groups",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/employee_groups/{{employees_id}}/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що employee_groups видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employee_groups/{{employees_id}}/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий group_enrollments",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/group_enrollments/{{group_enrollments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що group_enrollments видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/group_enrollments/{{group_enrollments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий salary_payments",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/salary_payments/{{salary_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що salary_payments видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/salary_payments/{{salary_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий bonus_payments",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/bonus_payments/{{bonus_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що bonus_payments видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/bonus_payments/{{bonus_payments_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий employment_history",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/employment_history/{{employment_history_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що employment_history видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employment_history/{{employment_history_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий child_groups",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/child_groups/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що child_groups видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/child_groups/{{child_groups_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий children",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/children/{{children_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що children видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/children/{{children_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий employees",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/employees/{{employees_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що employees видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/employees/{{employees_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий positions",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/positions/{{positions_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що positions видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/positions/{{positions_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий kindergartens",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/kindergartens/{{kindergartens_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що kindergartens видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/kindergartens/{{kindergartens_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Видалити тестовий addresses",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Переконатися, що addresses видалено",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/addresses/{{addresses_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
